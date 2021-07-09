@@ -56,10 +56,10 @@ scene('game', ({level, score}
     'l    y   l',
     'a        b',
     'a        b',
-    'a        b',
+    'a  y     b',
     'a   k    b',
     'l        l',
-    'a        b',
+    'a   y    b',
     'hddddddddg',
 ]]
 
@@ -158,7 +158,7 @@ scene('game', ({level, score}
     s.move(s.dir * slicerSpeed, 0)
   })
 
-  collides('slicer', 'wall', (d) =>{
+  collides('danger', 'wall', (d) =>{
     d.dir = -d.dir
   })
 
@@ -167,17 +167,14 @@ scene('game', ({level, score}
   })
 
   action('skeletor', (s)=>{
-    s.move(0, s.dir * skeletorSpeed)
+    s.move(s.dir * skeletorSpeed, s.dir * skeletorSpeed)
+    s.resolve()
     s.timer -= dt()
     if(s.timer <= 0){
       s.dir = -s.dir
       s.timer = rand(5)
     }
   })
-
-  collides('skeletor', 'wall'), (s)=>{
-      s.dir = -s.dir
-    }
 
   collides('kaboom', 'danger', (k,d)=>{
     wait(1, ()=>{
